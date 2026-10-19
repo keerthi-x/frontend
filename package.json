@@ -1,0 +1,20 @@
+{
+  "name": "chronosync-multitab-preferences",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Real-time multi-tab preference synchronization powered by Field-Level LWW-Element-Set CRDTs, Hybrid Logical Clocks (HLC), and Zero-FOUC Pre-Paint Hydration.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5173 --open",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.1"
+  }
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChronoSync — Multi-Tab CRDT Preference Synchronization</title>
+
+  <!--
+    ZERO-FOUC SYNCHRONOUS PRE-PAINT BOOTLOADER
+    Executes synchronously before the browser performs its first layout/paint pass.
+    Reads the persisted fast-boot snapshot from localStorage and applies `data-theme`,
+    `--user-font-size`, and `lang` directly to <html> so newly opened tabs NEVER flash
+    the wrong theme or font scale.
+  -->
+  <script>
+    (function zeroFoucPrePaintBootloader() {
+      try {
+        var raw = window.localStorage.getItem('chronosync:fastboot:v1');
+        if (!raw) {
+          var envRaw = window.localStorage.getItem('chronosync:preferences:v1');
+          if (envRaw) {
+            var env = JSON.parse(envRaw);
+            if (env && env.state) {
+              raw = JSON.stringify({
+                theme: env.state.theme && env.state.theme.value,
+                language: env.state.language && env.state.language.value,
+                fontSize: env.state.fontSize && env.state.fontSize.value
+              });
+            }
+          }
+        }
+        if (raw) {
+          var prefs = JSON.parse(raw);
+          var root = document.documentElement;
+          if (prefs.theme === 'light' || prefs.theme === 'dark') {
+            root.setAttribute('data-theme', prefs.theme);
+            root.style.colorScheme = prefs.theme;
+          }
+          if (typeof prefs.fontSize === 'number' && prefs.fontSize >= 12 && prefs.fontSize <= 24) {
+            root.style.setProperty('--user-font-size', prefs.fontSize + 'px');
+          }
+          if (prefs.language) {
+            root.setAttribute('lang', prefs.language);
+          }
+        }
+      } catch (e) {
+        // Fallback silently to default dark theme if storage is blocked
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
