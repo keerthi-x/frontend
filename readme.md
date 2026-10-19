@@ -1,6 +1,6 @@
-# ChronoSync: Real-Time Multi-Tab Settings Synchronization
+# ChronoSync: Real-Time Multi-Tab Settings Synchronization- ** task2 readme and everything is in nexagrid
 
-**Task:** 1. Frontend Development — Multi-Tab Settings Synchronization | **Technology:** TypeScript (`strict: true`, Zero External Runtime Libraries) | **Synchronization SLA:** `< 100ms` Target (`0.40ms – 2.10ms` Measured End-to-End; `1.59µs` Median CRDT Merge)
+**Task:** 1. Frontend Development — Multi-Tab Settings Synchronization | **Technology:** TypeScript (`strict: true`, Zero External Runtime Libraries) | **Synchronization SLA:** `< 100ms` Target (`0.40ms – 2.10ms` Measured End-to-End; `1.59µs` Median CRDT Merge) 
 
 ChronoSync is a custom-engineered TypeScript web application that synchronizes user preferences (**Dark/Light Mode**, **Multi-Language Selector**, and **Font-Size Slider**) across multiple open browser tabs in real time. To stand out against naive implementations that overwrite a monolithic JSON blob in `localStorage` using `Date.now()`, ChronoSync implements a custom **Field-Level Last-Write-Wins Element-Set (LWW-Element-Set) CRDT**, **Hybrid Logical Clocks (HLC)**, **Web Locks API (`navigator.locks`) atomic persistence**, and a **Zero-FOUC synchronous `<head>` pre-paint bootloader**.
 
